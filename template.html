@@ -18,6 +18,9 @@
                 console.log("file updated");
                 data.value = e.data;
             }
+            data.addEventListener("change",(e)=>{
+                conn.send(e.target.value);
+            });
         })();
         </script>
     </body>

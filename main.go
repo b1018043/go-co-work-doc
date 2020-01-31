@@ -51,7 +51,10 @@ func reader(ws *websocket.Conn) {
 	ws.SetReadDeadline(time.Now().Add(pongWait))
 	ws.SetPongHandler(func(string) error { ws.SetReadDeadline(time.Now().Add(pongWait)); return nil })
 	for {
-		_, _, err := ws.ReadMessage()
+		_, p, err := ws.ReadMessage()
+		if p != nil {
+			ioutil.WriteFile(filename, p, 0644)
+		}
 		if err != nil {
 			break
 		}
