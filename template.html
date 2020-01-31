@@ -4,22 +4,19 @@
         <title>WebSocket sample</title>
     </head>
     <body>
-        <pre id="fileData">{{.Data}}</pre>
+        <textarea id="fileData">{{.Data}}</textarea>
         <script type="text/javascript">
         (function(){
             let data = document.getElementById("fileData");
             let conn = new WebSocket("ws://{{.Host}}/ws?lastMod={{.LastMod}}");
-            conn.onopen=function(e){
-                console.log("aadd")
-            }
             conn.onclose = function (e)
             {
-                data.textContent = "Connection closed";
+                data.value = "Connection closed";
             }
             conn.onmessage = function (e)
             {
                 console.log("file updated");
-                data.textContent = e.data;
+                data.value = e.data;
             }
         })();
         </script>
